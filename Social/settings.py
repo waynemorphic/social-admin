@@ -46,7 +46,12 @@ INSTALLED_APPS = [
     'Media',
     # third party apps
     'bootstrap5',
+    'tailwind',
+    'tailwind_theme',
+    'django_browser_reload',
 ]
+
+TAILWIND_APP_NAME = 'tailwind_theme'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_browser_reload.middleware.BrowserReloadMiddleware',
+
 ]
 
 ROOT_URLCONF = 'Social.urls'

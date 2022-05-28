@@ -1,4 +1,5 @@
 {% load bootstrap5 %} 
+{% load tailwind_tags %} 
 <!doctype html>
 <html lang="en">
 
@@ -12,15 +13,17 @@
     {%endif%}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
     {% block styles %}
     {% bootstrap_css %}
     {% bootstrap_messages %}
+    {tailwind_css %} 
     {% endblock %}
 </head>
 
 <body>
-    {% block content% }
-    <h1 class="container">Post for {{date|date:"1 d-F Y"}}</h1>
+    {% block content %}
+    <h1 class="container">Post for {{date|date:"l d-F Y"}}</h1>
     {% endblock%}
 
     {% block scripts %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from datetime import datetime as dt
+import datetime as dt
 
 
 # Create your views here.
