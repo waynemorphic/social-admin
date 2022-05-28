@@ -1,5 +1,6 @@
 {% load bootstrap5 %} 
-{% load tailwind_tags %} 
+{% load tailwind_tags %}
+
 <!doctype html>
 <html lang="en">
 
@@ -16,12 +17,16 @@
 
     {% block styles %}
     {% bootstrap_css %}
+    
     {% bootstrap_messages %}
-    {tailwind_css %} 
+    
     {% endblock %}
+    {% tailwind_css %} 
 </head>
 
 <body>
+    {% include 'navbar.html' %} 
+
     {% block content %}
     <h1 class="container">Post for {{date|date:"l d-F Y"}}</h1>
     {% endblock%}
