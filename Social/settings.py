@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # local apps
     'Media',
     # third party apps
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
