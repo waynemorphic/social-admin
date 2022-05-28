@@ -21,3 +21,6 @@ urlpatterns = [
     path('', include('Media.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
 ]
+
+# remember to run this tailwind build before deployment/production
+# python manage.py tailwind build
