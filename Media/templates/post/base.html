@@ -1,5 +1,6 @@
 {% load bootstrap5 %} 
 {% load tailwind_tags %}
+{% load static %} 
 
 <!doctype html>
 <html lang="en">
@@ -14,21 +15,22 @@
     {%endif%}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'gallery/base.css' %}">
     {% block styles %}
     {% bootstrap_css %}
-    
     {% bootstrap_messages %}
+    {% tailwind_css %} 
     
     {% endblock %}
-    {% tailwind_css %} 
+   
 </head>
 
-<body>
+<body class="bg-sky-700 sm:bg-sky-700 lg:bg-teal-700 md:bg-cyan-700 xl:bg-violet-700">
     {% include 'navbar.html' %} 
 
     {% block content %}
-    <h1 class="container">Post for {{date|date:"l d-F Y"}}</h1>
+    <!-- <h1 class="text-center">Post for {{date|date:"l d-F Y"}}</h1> -->
     {% endblock%}
 
     {% block scripts %}

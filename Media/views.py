@@ -1,26 +1,39 @@
-from django.shortcuts import render, redirect
+from django.http import Http404
+from django.shortcuts import render, get_object_or_404
 import datetime as dt
-
+from Media.models import Image
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
-
-# post for particular date
-def post_of_day(request):
-    date = dt.date.today()
-    return render(request, {"date": date})
-
-# getting the day of the week
-def convert_dates(dates):
-    # get weekday number for the particular date
-    day_number = dt.date.weekday(dates)
+    display = Image.display_images()
+    return render(request,'index.html', {"display": display[:]}) # [:] the whole array
     
-    days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
     
-    # return the actual day
-    day = days[day_number]
-    return day
-
 def search_results(request):
-    return render(request, 'post/search.html')
+    if 'image' in request.GET and request.GET['image']:
+        search_term = request.GET.get('image')
+        searched_image = Image.search_image(search_term) or Image.filter_by_location(search_term)
+        message = f'{search_term}'
+        
+        return render(request, 'post/search.html', {'message': message, 'images': searched_image})
+    else:
+        message = "You have not searched for any image name"
+        print(search_term)
+    return render(request, 'post/search.html', {'message': message})
+
+def show_single_image(request, image_id):
+    display = get_object_or_404(Image, pk = image_id)
+    # display = Image.get_image_by_id(id = image_id)
+    return render (request, 'post/show_post.html', {"display": display})
+
+# def post_location(request, location):
+#     show_location = Image.filter_by_location(location = location)
+#     print('he')
+#     return render (request, 'post/location.html', {'location': location[location]})
+
+def post_location(request, location_id):
+    try:
+        location = Image.objects.get(id = location_id)
+    except Image.DoesNotExist:
+        raise Http404()
+    return render(request, 'post/location.html', {"location": location})

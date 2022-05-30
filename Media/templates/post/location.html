@@ -1,0 +1,23 @@
+{% extends 'post/base.html' %} 
+{% load static %}
+{% block content%}
+{{block.super}}
+
+{% for place in location %} 
+<div class="container">
+    <div style="display: grid; width: auto auto">
+        {% if show_location == nairobi %}
+        <small>{{place.image_location}}</small>
+        <div>
+            <img src="{{place.image.url}}" alt="{{place.image_name}}">            
+        </div>
+        {% else if show_location == kenya %} 
+        <small>{{place.image_location}}</small>
+        <div>
+            <img src="{{place.image.url}}" alt="{{place.image_name}}">
+        </div>
+        {% endif %} 
+    </div>  
+</div>
+{% endfor %} 
+{% endblock %} 

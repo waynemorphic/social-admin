@@ -1,0 +1,29 @@
+{%extends 'post/base.html'%}
+{% block content %}
+<div class="container">
+
+    <div class="row">
+        {% if images%}
+        <h2>Found {{ images|length }} result of searched term {{message}}</h2>
+        {% else %}
+        <h2> Found 0 images for the search term {{message}}</h2>
+        {% endif %}
+
+    </div>
+
+    <div class="row">
+
+        {% if images %}
+        {% for image in images %}
+
+        <div class="col-sm-6 d-grid gap-3" style="width: 18rem;">
+            <img src="{{image.image.url}}" class="card-img-top" alt="{{image.image_name}}">
+            <div class="card-body">
+                <p class="card-text">{{image.image_description}}</p>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

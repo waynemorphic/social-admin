@@ -1,0 +1,9 @@
+{% extends 'post/base.html' %} 
+{%block content %} 
+{{block super()}}
+
+<div class="container">
+    <p class="text-center">{{display.image_name}}</p>
+    <img src="{{display.image}}" class="img responsive" alt="image">
+</div>
+{% endblock %}
