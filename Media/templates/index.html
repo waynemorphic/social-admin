@@ -5,44 +5,54 @@
 
 
 <!-- Modal -->
+<h4 style="text-align: center; color: white; font-family: 'Poiret One', cursive; padding: 1.5%">Welcome to the Social
+    Gallery. Upload and store your favorite pictures here. Enjoy!</h4>
 
+    {% if display %} 
+
+{% for images in display %}
 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 p-3">
-    {% for images in display %}
-    <div>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <img src="{{images.image.url}}" style=" width: 300px; height: 300px" class="img-thumbnail" data-bs-toggle="popover"
-                title="{{images.image_name | upper}}" data-bs-content="Popover body content is set in this attribute.">
-        </button>
-    </div>    
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Photo Name: {{images.image_name |upper}}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <img src="{{images.image.url}}" style="width: auto; height: 400px;">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">
-                        Photo Description: {{images.image_description}}<br>
-                        Posted on: {{images.post_date | date}} in {{images.image_location | capfirst}}
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Exit</button>
-                </div>
-            </div>
-        </div>
+    <img src="{{images.image.url}}"
+        title="{{images.image_name | upper}} {{images.image_category | capfirst}} {{images.post_date | date}} {{images.image_location | capfirst}}" id="copy"
+        style="width: 300px; height: 250px; cursor: pointer;" class="img-thumbnail" alt="{{images.image_category}}"
+        onclick="onClick(this)" class="w3-hover-opacity">
+</div>
+
+<div id="modal01" class="w3-modal" onclick="this.style.display='none'">
+    <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+    <div class="w3-modal-content w3-animate-zoom">
+        <img id="img01" style="width:100%">
+        <div id="caption">Posted on {{images.post_date}}</div>
+        <button class="btn btn-warning" onclick="copyPath('#copy')">Copy</button>
     </div>
-    {% empty %}
-    <div class="row">
-        <h2 class="text-center"><span class="material-symbols-outlined hover:animate-spin">
-            </span>There are no Images to show</h2>
-    </div>
-    {% endfor %}
+</div>
 
 
+{% empty %}
+<div class="row">
+    <h2 class="text-center"><span class="material-symbols-outlined hover:animate-spin">
+        </span>There are no Images to show</h2>
+</div>
+{% endfor %}
+{% endif %} 
 
-    {% endblock %}
+<script>
+    function onClick(element) {
+        document.getElementById('img01').src = element.src;
+        document.getElementById('modal01').style.display = 'block';
+        console.log('hello')
+    }
+</script>
+
+<script>
+    function copyPath(element) {
+        let path = window.location.href;
+        document.getElementById('copy').innerHTML = path;
+        document.execCommand('copy')
+        navigator.clipboard.writeText(path)
+        alert ('Copied')
+        console.log(path)
+        
+    }
+</script>
+{% endblock %}
