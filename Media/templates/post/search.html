@@ -19,7 +19,13 @@
         <div class="col-sm-6 d-grid gap-3" style="width: 18rem;">
             <img src="{{image.image.url}}" class="card-img-top" alt="{{image.image_name}}">
             <div class="card-body">
-                <p class="card-text">{{image.image_description}}</p>
+                <p class="card-text">
+                    Image Description: {{image.image_description  | capfirst}}<br>
+                    Image Location: {{image.image_location | capfirst }}<br>
+                    Posted On: {{image.post_date | date }}
+                </p>
+
+
             </div>
         </div>
         {% endfor %}
