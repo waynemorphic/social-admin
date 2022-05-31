@@ -1,7 +1,9 @@
-from django.http import Http404
+from django.http import Http404, HttpRequest
 from django.shortcuts import render, get_object_or_404
 import datetime as dt
 from Media.models import Image
+import pyperclip
+from PIL import ImageGrab
 
 # Create your views here.
 def index(request):
@@ -12,7 +14,7 @@ def index(request):
 def search_results(request):
     if 'image' in request.GET and request.GET['image']:
         search_term = request.GET.get('image')
-        searched_image = Image.search_image(search_term) or Image.filter_by_location(search_term)
+        searched_image = Image.search_image(search_term) 
         message = f'{search_term}'
         
         return render(request, 'post/search.html', {'message': message, 'images': searched_image})
@@ -37,3 +39,8 @@ def post_location(request, location_id):
     except Image.DoesNotExist:
         raise Http404()
     return render(request, 'post/location.html', {"location": location})
+
+# def copy(request, method = ['GET']):
+#     copy_image = ImageGrab.grabclipboard()
+#     copy_image.save('clipboard.jpg', 'JPG')
+#     return HttpRequest (request, copy_image)
