@@ -92,12 +92,11 @@ class Image (models.Model):
     @classmethod
     def search_image(cls, search_name):
         image_find = cls.objects.filter(image_name__icontains = search_name)
-        
         return image_find
         
     @classmethod   
     def filter_by_location(cls, location):
-        find_location = cls.objects.filter(location__image_location__contains = location).all()
+        find_location = cls.objects.filter(image_location__icontains = location)
         return find_location        
     
     @classmethod
